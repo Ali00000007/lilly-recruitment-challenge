@@ -3,19 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Medicine Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+
     <div class="disclaimer" id="disclaimer">
         Disclaimer: All medicine names and prices used in this application are fictional and do not represent any real medicine(s).
     </div>
+
     <header>
         <h1>Medicine Tracker</h1>
+        <p>Track, add, and analyse fictional medicine prices.</p>
     </header>
+
     <main>
 
+        <section class="card">
+            <h2>Add New Medicine</h2>
+
+            <form id="addMedicineForm">
+                <label for="medName">Medicine Name</label>
+                <input type="text" id="medName" placeholder="Enter medicine name" required>
+
+                <label for="medPrice">Price</label>
+                <input type="number" id="medPrice" step="0.01" placeholder="Enter price (e.g., 12.99)" required>
+
+                <button type="submit" class="btn-primary">Add Medicine</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Delete Medicine</h2>
+
+            <form id="deleteMedicineForm">
+                <label for="medNameDel">Medicine Name</label>
+                <input type="text" id="medNameDel" placeholder="Enter medicine name" required>
+
+
+                <button id="deleteMedicineButton" type="submit" class="btn-primary">Delete Medicine</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>All Medicines</h2>
+            <div id="medicineList" class="medicine-list">
+                <p>Loading medicines...</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Price Analysis</h2>
+            <button id="averagePriceButton" class="btn-secondary">Calculate Average Price</button>
+            <p id="averagePriceDisplay">Price Average</p>
+        </section>
+
     </main>
-    <script src="script.js"></script>
+
+    <script src="/static/script.js"></script>
+
 </body>
 </html>

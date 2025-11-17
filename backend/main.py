@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+import os
 """
 This module defines a FastAPI application for managing a list of medicines.
 It provides endpoints to retrieve all medicines, retrieve a single medicine by name,
@@ -23,6 +26,15 @@ import uvicorn
 import json
 
 app = FastAPI()
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+@app.get("/")
+def read_root():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 app.add_middleware(
     CORSMiddleware,
@@ -125,6 +137,29 @@ def delete_med(name: str = Form(...)):
     return {"error": "Medicine not found"}
 
 # Add your average function here
+@app.get("/average-price")
+def calculate_average_price():
+    """
+    Calculate and return the average price of all medicines.
+    Returns:
+        dict: { "average_price": float } or { "error": str }
+    """
+    try:
+        with open('data.json') as meds:
+            data = json.load(meds)
+            medicines = data.get("medicines", [])
+            
+            valid_prices = [med["price"] for med in medicines
+                            if isinstance(med.get("price"), (int, float))]
+            
+            if not valid_prices:
+                return {"error": "No valid prices found to calculate average."}
+            
+            average_price = sum(valid_prices) / len(valid_prices)
+            return {"average_price": round(average_price, 2)}
+    except Exception as e:
+        return {"error": f"Failed to calculate average price: {str(e)}"}
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
