@@ -8,7 +8,7 @@
 - Firstly I read through the material and started the server to make sure everything was working.
 - Next, I created the sections to view medicines, create and delete medicines in the index.html file.
 - After that I edited the script.js file to connect the frontend to the backend API points.
-- Throughout the challenge I tested each feature as i developed them and did not leave all the debugging until the end. Thi helped me to spot issues and address them early on.
+- Throughout the challenge I tested each feature as i developed them and did not leave all the debugging until the end. This helped me to spot issues and address them early on.
 
 
 ## Objectives - Innovative Solutions
